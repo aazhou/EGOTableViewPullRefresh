@@ -6,7 +6,7 @@ d::Spec.new do |s|
   s.license  = 'MIT'
   s.summary  = 'A similar control to the pull down to refresh control created by atebits in Tweetie 2.'
   s.homepage = 'https://github.com/aazhou/EGOTableViewPullRefresh'
-  s.author   = { 'Devin Doty' => 'devin.r.doty@gmail.com' }
+  s.author   = { 'aazhou' => 'aaron.l.zhou@gmail.com' }
   s.source   = { :git    => 'https://github.com/aazhou/EGOTableViewPullRefresh.git' }
 
   s.source_files = 'EGOTableViewPullRefresh/Classes/View/*.{h,m}'
