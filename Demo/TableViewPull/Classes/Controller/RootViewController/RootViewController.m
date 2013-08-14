@@ -25,21 +25,28 @@
 //
 
 #import "RootViewController.h"
+#import "UIScrollView+Utils.h"
 
 @implementation RootViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-	
+    
+//    self.tableView.contentInset = UIEdgeInsetsMake(44, 0, 0, 0);
+//    self.tableView.originalContentInset = UIEdgeInsetsMake(44, 0, 0, 0);
+    
 	if (_refreshHeaderView == nil) {
 		
 		EGORefreshTableHeaderView *view = [[EGORefreshTableHeaderView alloc] initWithFrame:CGRectMake(0.0f, 0.0f - self.tableView.bounds.size.height, self.view.frame.size.width, self.tableView.bounds.size.height)];
 		view.delegate = self;
+        view.backgroundColor = [UIColor whiteColor];
 		[self.tableView addSubview:view];
 		_refreshHeaderView = view;
 		[view release];
 		
 	}
+    
+    
 	
 	//  update the last update date
 	[_refreshHeaderView refreshLastUpdatedDate];
@@ -72,17 +79,12 @@
         cell = [[[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier] autorelease];
     }
     
+    cell.textLabel.text = [NSString stringWithFormat:@"%i", indexPath.row];
+    
 	// Configure the cell.
 
     return cell;
 }
-
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
-	
-	return [NSString stringWithFormat:@"Section %i", section];
-	
-}
-
 
 #pragma mark -
 #pragma mark Data Source Loading / Reloading Methods
@@ -126,19 +128,13 @@
 - (void)egoRefreshTableHeaderDidTriggerRefresh:(EGORefreshTableHeaderView*)view{
 	
 	[self reloadTableViewDataSource];
-	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:3.0];
+	[self performSelector:@selector(doneLoadingTableViewData) withObject:nil afterDelay:1.0];
 	
 }
 
 - (BOOL)egoRefreshTableHeaderDataSourceIsLoading:(EGORefreshTableHeaderView*)view{
 	
 	return _reloading; // should return if data source model is reloading
-	
-}
-
-- (NSDate*)egoRefreshTableHeaderDataSourceLastUpdated:(EGORefreshTableHeaderView*)view{
-	
-	return [NSDate date]; // should return date data source was last changed
 	
 }
 
